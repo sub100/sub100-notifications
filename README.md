@@ -11,7 +11,7 @@ composer req sub100/notifications
 
 Publish config
 ```sh
-php artisan vendor:publish --provider=sub100\Notifications\Sub100NotificationServiceProvider
+php artisan vendor:publish --provider="sub100\Notifications\Sub100NotificationServiceProvider"
 ```
 
 Configure `.env` file
