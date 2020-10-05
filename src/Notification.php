@@ -15,7 +15,7 @@ class Notification
 
     public function notify(Message $message, string $token = ''): bool
     {
-        $client = $this->getClient();
+        $client = $this->getClient($token);
         $response = $client->post('notify', [
             'body' => $message->toJson()
         ]);
