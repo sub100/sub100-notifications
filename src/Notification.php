@@ -13,7 +13,7 @@ class Notification
         $this->notificationUrl = config('sub100.notification_url');
     }
 
-    public function notify(Message $message): bool
+    public function notify(Message $message, string $token = ''): bool
     {
         $client = $this->getClient();
         $response = $client->post('notify', [
@@ -23,14 +23,14 @@ class Notification
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    private function getClient()
+    private function getClient(string $token = '')
     {
         return new Client([
             'base_uri' => $this->notificationUrl,
             'headers' => [
                 'content-type' => 'application/json',
                 'Accept' => 'application/json',
-                'x-api-key' => request()->header('x-api-key'),
+                'x-api-key' => $token ?: request()->header('x-api-key'),
             ]
         ]);
     }
