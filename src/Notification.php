@@ -10,7 +10,7 @@ class Notification
 
     public function __construct()
     {
-        $this->notificationUrl = config('sub100.notification_url');
+        $this->notificationUrl = trim(config('sub100.notification_url'), '/') . '/';
     }
 
     public function notify(Message $message, string $token = ''): bool
