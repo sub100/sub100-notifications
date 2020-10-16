@@ -20,6 +20,8 @@ class Message
 
     protected string $from = '';
 
+    protected string $replyTo = '';
+
     protected string $originId = '';
 
     protected string $propertyId = '';
@@ -85,6 +87,11 @@ class Message
         $this->from = $from;
     }
 
+    public function replyTo(string $replyTo)
+    {
+        $this->replyTo = $replyTo;
+    }
+
     public function toArray(): array
     {
         $array = [
@@ -111,6 +118,10 @@ class Message
 
         if ($this->from) {
             $array['mail_from'] = $this->from;
+        }
+
+        if ($this->replyTo) {
+            $array['mail_reply_to'] = $this->replyTo;
         }
 
         return $array;
