@@ -42,7 +42,6 @@ composer req sub100/notifications
 <?php
 
 $message = new Message();
-$message->subject = 'Subject';
 $message->message = 'Message text';
 $message->addWhatsapp('+55 (44) 91234-5678');
 
