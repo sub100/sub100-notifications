@@ -13,7 +13,7 @@ class Sub100NotificationServiceProvider extends ServiceProvider
         ], 'sub100-config');
 
         $this->app->singleton('Sub100Notification', function ($app) {
-            return new Notification();
+            return new Notification(config('sub100.notification_url'));
         });
     }
 

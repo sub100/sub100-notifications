@@ -6,11 +6,11 @@ use GuzzleHttp\Client;
 
 class Notification
 {
-    private string $notificationUrl;
+    private string $notificationApiUrl;
 
-    public function __construct()
+    public function __construct(string $notificationApiUrl)
     {
-        $this->notificationUrl = trim(config('sub100.notification_url'), '/') . '/';
+        $this->notificationApiUrl = trim($notificationApiUrl, '/') . '/';
     }
 
     public function notify(Message $message, string $token = ''): bool
@@ -26,7 +26,7 @@ class Notification
     private function getClient(string $token = '')
     {
         return new Client([
-            'base_uri' => $this->notificationUrl,
+            'base_uri' => $this->notificationApiUrl,
             'headers' => [
                 'content-type' => 'application/json',
                 'Accept' => 'application/json',

@@ -12,11 +12,15 @@ class Message
 
     protected array $phones = [];
 
+    protected array $whatsapp = [];
+
     protected string $smsNotificationType = '';
 
     protected array $variables = [];
 
     protected string $mailTemplate = '';
+
+    protected string $mailBody = '';
 
     protected string $from = '';
 
@@ -27,6 +31,12 @@ class Message
     protected string $propertyId = '';
 
     protected string $reference = '';
+
+    protected string $senderServiceType = '';
+
+    protected string $senderServiceCredentials = '';
+
+    protected string $clientId = '';
 
     public function subject(string $subject)
     {
@@ -43,13 +53,23 @@ class Message
         $this->emails[] = $email;
     }
 
+    public function addSms(string $phone)
+    {
+        $this->phones[] = self::numberOnly($phone);
+    }
+
+    public function addWhastapp(string $phone)
+    {
+        $this->whatsapp[] = self::numberOnly($phone);
+    }
+
     /**
      * Alias for sms
      * @link Message::addSms()
      */
     public function addPhone(string $phone)
     {
-        $this->phones[] = (string)preg_replace('/\D/', '', $phone);
+        $this->addSms($phone);
     }
 
     public function originId(string $originId)
@@ -82,6 +102,11 @@ class Message
         $this->mailTemplate = $mailTemplate;
     }
 
+    public function mailBody(string $mailBody)
+    {
+        $this->mailBody = $mailBody;
+    }
+
     public function from(string $from)
     {
         $this->from = $from;
@@ -90,6 +115,21 @@ class Message
     public function replyTo(string $replyTo)
     {
         $this->replyTo = $replyTo;
+    }
+
+    public function senderServiceType(string $senderServiceType)
+    {
+        $this->senderServiceType = $senderServiceType;
+    }
+
+    public function senderServiceCredentials(string $senderServiceCredentials)
+    {
+        $this->senderServiceCredentials = $senderServiceCredentials;
+    }
+
+    public function clientId(string $clientId)
+    {
+        $this->clientId = $clientId;
     }
 
     public function toArray(): array
@@ -103,12 +143,17 @@ class Message
         if ($this->emails) {
             $array["email_recipients"] = $this->emails;
             $array["mail_template"] = $this->mailTemplate;
+            $array["mail_body"] = $this->mailBody;
             $array["variables"] = $this->variables;
         }
 
         if ($this->phones) {
             $array["sms_recipients"] = $this->phones;
             $array["sms_notification_type"] = $this->smsNotificationType;
+        }
+
+        if ($this->whatsapp) {
+            $array["whatsapp_recipients"] = $this->whatsapp;
         }
 
         if ($this->propertyId && $this->reference) {
@@ -124,11 +169,28 @@ class Message
             $array['mail_reply_to'] = $this->replyTo;
         }
 
+        if ($this->senderServiceType) {
+            $array['sender_service_type'] = $this->senderServiceType;
+        }
+
+        if ($this->senderServiceCredentials) {
+            $array['sender_service_credentials'] = $this->senderServiceCredentials;
+        }
+
+        if ($this->clientId) {
+            $array['client_id'] = $this->clientId;
+        }
+
         return $array;
     }
 
     public function toJson(): string
     {
         return json_encode($this->toArray());
+    }
+
+    public static function numberOnly(string $value): string
+    {
+        return (string)preg_replace('/\D/', '', $value);
     }
 }
