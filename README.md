@@ -1,4 +1,4 @@
-# Sub100 Notifications Laravel SDK
+# Sub100 Notifications SDK
 
 This package uses Sub100 notification api to send email and sms notifications.
 
@@ -18,3 +18,23 @@ Configure `.env` file
 ```dotenv
 NOTIFICATION_URL=https://path-to-notification/api/
 ```
+
+### Usage as a composer package
+
+Install via composer
+```sh
+composer req sub100/notifications
+```
+
+```php
+
+<?php
+
+$message = new Message();
+$message->subject = 'Subject';
+$message->message = 'Message text';
+$message->...
+
+$notification = new Notification('http://notification-api.example.com');
+
+$notification->notify($message);
