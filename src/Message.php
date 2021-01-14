@@ -10,7 +10,7 @@ class Message
 
     protected array $emails = [];
 
-    protected array $phones = [];
+    protected array $sms = [];
 
     protected array $whatsapp = [];
 
@@ -55,7 +55,7 @@ class Message
 
     public function addSms(string $phone)
     {
-        $this->phones[] = self::numberOnly($phone);
+        $this->sms[] = self::numberOnly($phone);
     }
 
     public function addWhastapp(string $phone)
@@ -147,8 +147,8 @@ class Message
             $array["variables"] = $this->variables;
         }
 
-        if ($this->phones) {
-            $array["sms_recipients"] = $this->phones;
+        if ($this->sms) {
+            $array["sms_recipients"] = $this->sms;
             $array["sms_notification_type"] = $this->smsNotificationType;
         }
 
