@@ -122,7 +122,7 @@ class Message
         $this->senderServiceType = $senderServiceType;
     }
 
-    public function senderServiceCredentials(string $senderServiceCredentials)
+    public function senderServiceCredentials(array $senderServiceCredentials)
     {
         $this->senderServiceCredentials = $senderServiceCredentials;
     }
