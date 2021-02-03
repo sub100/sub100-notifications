@@ -13,7 +13,7 @@ class Notification
         $this->notificationApiUrl = trim($notificationApiUrl, '/') . '/';
     }
 
-    public function notify(Message $message, string $token = ''): bool
+    public function notify(Message $message, string $token = '')
     {
         $client = $this->getClient($token);
         $response = $client->post('notify', [
